@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Check for rooted device"
+        android:id="@+id/rooted_check"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rooted?"
+        android:id="@+id/rooted_indicator"
+        android:layout_centerHorizontal="true"
+        android:enabled="false"
+        android:clickable="false"
+        android:layout_below="@id/rooted_check"
+        android:layout_marginTop="24dp"
+        android:textStyle="bold" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Signing keys indicate rooting"
+        android:id="@+id/rooted_signing_keys"
+        android:layout_below="@id/rooted_indicator"
+        android:layout_centerHorizontal="true"
+        android:enabled="false"
+        android:clickable="false"
+        android:layout_marginTop="24dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Typical rooted binaries found"
+        android:id="@+id/rooted_binaries"
+        android:layout_below="@id/rooted_signing_keys"
+        android:layout_centerHorizontal="true"
+        android:enabled="false"
+        android:clickable="false"
+        android:layout_marginTop="24dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Su process"
+        android:id="@+id/rooted_process"
+        android:layout_below="@id/rooted_binaries"
+        android:layout_centerHorizontal="true"
+        android:enabled="false"
+        android:clickable="false"
+        android:layout_marginTop="24dp" />
+</RelativeLayout>
