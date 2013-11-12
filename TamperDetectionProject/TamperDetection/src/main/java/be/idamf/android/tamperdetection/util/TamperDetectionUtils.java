@@ -17,6 +17,8 @@ import java.security.cert.X509Certificate;
 
 import javax.security.auth.x500.X500Principal;
 
+import be.idamf.android.tamperdetection.tampering.PublicKeyInfo;
+
 
 /**
  * Tamper detection utilities.
@@ -50,14 +52,13 @@ public class TamperDetectionUtils {
      * @return true when the app is installed through the Play store, otherwise false
      */
     public static boolean isInstalledThroughPlayStore(final Context context) {
-        boolean playStoreInstalled = false;
-        PackageManager packageManager = context.getPackageManager();
+        final PackageManager packageManager = context.getPackageManager();
         final String packageInstallerName = packageManager.getInstallerPackageName(getPackageName(context));
         if ("com.android.vending".equals(packageInstallerName)) {
             // App is installed through the Play Store
-            playStoreInstalled = true;
+            return true;
         }
-        return playStoreInstalled;
+        return false;
     }
 
     /**
@@ -90,7 +91,7 @@ public class TamperDetectionUtils {
                 X509Certificate certificate = generateX509CertificateFromSignature(signatures[i]);
                 debuggable = certificate.getSubjectX500Principal().equals(DEBUG_CERTIFICATE_DN);
                 if (debuggable) {
-                    break;
+                    return true;
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
@@ -98,7 +99,7 @@ public class TamperDetectionUtils {
         } catch (CertificateException e) {
             // certificate factory non-instantiable - debuggable = false
         }
-        return debuggable;
+        return false;
     }
 
     /**
@@ -109,14 +110,13 @@ public class TamperDetectionUtils {
      * @return true when the signing key appears valid, otherwise false
      */
     public static boolean isValidSigningKey(final Context context, final String certificateToCheckAgainst) {
-        boolean valid = true;
         try {
             Signature[] signatures = getSignatures(context);
             for (int i = 0; i < signatures.length; i++) {
                 X509Certificate certificate = generateX509CertificateFromSignature(signatures[i]);
                 String sha1 = getCertificateSHA1(certificate);
                 if (!certificateToCheckAgainst.equalsIgnoreCase(sha1)) {
-                    valid = false;
+                    return false;
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
@@ -126,7 +126,35 @@ public class TamperDetectionUtils {
         } catch (NoSuchAlgorithmException e) {
             // algorithm not found - leave valid true
         }
-        return valid;
+        return true;
+    }
+
+    /**
+     * Get basic information about the app's public key.
+     * The Signature array from the PackageInfo object can contain multiple signatures, but
+     * most applications are only signed once. Thus we only check the first signature here.
+     * If your app is signed with multiple keys, you should check all of those keys!
+     *
+     * @param context Context
+     * @return {@link be.idamf.android.tamperdetection.tampering.PublicKeyInfo} object or null
+     */
+    public static PublicKeyInfo getAppPublicKeyInfo(final Context context) {
+        try {
+            Signature[] signatures = getSignatures(context);
+            // most apps are only signed once, as such: only get the first one here
+            X509Certificate certificate = generateX509CertificateFromSignature(signatures[0]);
+            PublicKeyInfo x509CertificateInfo = new PublicKeyInfo(
+                    certificate.getSubjectDN().toString(),
+                    certificate.getIssuerDN().toString(),
+                    certificate.getNotBefore(),
+                    certificate.getNotAfter());
+            return x509CertificateInfo;
+        } catch (PackageManager.NameNotFoundException e) {
+            // problem getting the signatures
+        } catch (CertificateException e) {
+            // exception getting at the CertificateFactory
+        }
+        return null;
     }
 
     /**

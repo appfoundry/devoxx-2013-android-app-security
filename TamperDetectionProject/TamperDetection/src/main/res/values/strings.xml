@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TamperDetection</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Tamper Detection</string>
     <string name="action_info">Info</string>
     <string name="title_section1">Environment</string>
     <string name="title_section2">Rooted</string>
     <string name="title_section3">Network</string>
+
+    <string name="btn_test_environment">Test environment</string>
+    <string name="ckb_installed_play_store">Installed through Play Store</string>
+    <string name="ckb_debuggable">Debuggable</string>
+    <string name="ckb_running_emulator">Running on emulator</string>
+    <string name="ckb_valid_signing_key">Valid signing key</string>
 
     <string name="about">About</string>
     <string name="msg_about">This is an example app for the Devoxx 2013 \'Android
