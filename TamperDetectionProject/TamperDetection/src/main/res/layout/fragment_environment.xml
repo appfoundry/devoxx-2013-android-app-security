@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
 <RelativeLayout
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="wrap_content">
 
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Test environment"
+        android:text="@string/btn_test_environment"
         android:id="@+id/environment_check"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -18,33 +22,94 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Installed through Play Store"
+        android:text="@string/ckb_installed_play_store"
         android:id="@+id/environment_playstore"
         android:layout_centerHorizontal="true"
         android:enabled="false"
         android:clickable="false"
         android:layout_below="@id/environment_check"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="16dp" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Debuggable"
+        android:text="@string/ckb_debuggable"
         android:id="@+id/environment_debuggable"
         android:layout_below="@id/environment_playstore"
         android:layout_centerHorizontal="true"
         android:enabled="false"
         android:clickable="false"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="16dp" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Valid signing key"
-        android:id="@+id/environment_signing_key"
+        android:text="@string/ckb_running_emulator"
+        android:id="@+id/environment_emulator"
         android:layout_below="@id/environment_debuggable"
         android:layout_centerHorizontal="true"
         android:enabled="false"
         android:clickable="false"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="16dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ckb_valid_signing_key"
+        android:id="@+id/environment_signing_key"
+        android:layout_below="@id/environment_emulator"
+        android:layout_centerHorizontal="true"
+        android:enabled="false"
+        android:clickable="false"
+        android:layout_marginTop="16dp" />
+
+    <LinearLayout
+        android:id="@+id/environment_signature_info"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/environment_signing_key"
+        android:padding="16dp"
+        android:layout_alignParentLeft="true"
+        android:visibility="invisible"
+        android:background="#330099cc">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="App signature info"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subject:"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textStyle="bold|italic" />
+        <TextView
+            android:id="@+id/environment_signature_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Issuer:"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textStyle="bold|italic" />
+        <TextView
+            android:id="@+id/environment_signature_issuer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Validity:"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textStyle="bold|italic" />
+        <TextView
+            android:id="@+id/environment_signature_validity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </RelativeLayout>
+</ScrollView>
