@@ -1,4 +1,4 @@
-package be.idamf.android.tamperdetection.tampering;
+package be.idamf.android.tamperdetection.data;
 
 import java.util.Date;
 
