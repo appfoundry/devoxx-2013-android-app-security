@@ -17,7 +17,7 @@ import java.security.cert.X509Certificate;
 
 import javax.security.auth.x500.X500Principal;
 
-import be.idamf.android.tamperdetection.tampering.PublicKeyInfo;
+import be.idamf.android.tamperdetection.data.PublicKeyInfo;
 
 
 /**
@@ -40,6 +40,8 @@ public class TamperDetectionUtils {
         } else if (Build.MODEL.contains("google_sdk") || Build.MODEL.contains("Emulator") || Build.MODEL.contains("Android SDK")) {
             runningInEmulator = true;
         } else if (Build.PRODUCT.contains("sdk") || Build.PRODUCT.equalsIgnoreCase("full_x86")) {
+            runningInEmulator = true;
+        } else if (Build.HARDWARE.contains("goldfish")) {
             runningInEmulator = true;
         }
         return runningInEmulator;
@@ -136,7 +138,7 @@ public class TamperDetectionUtils {
      * If your app is signed with multiple keys, you should check all of those keys!
      *
      * @param context Context
-     * @return {@link be.idamf.android.tamperdetection.tampering.PublicKeyInfo} object or null
+     * @return {@link be.idamf.android.tamperdetection.data.PublicKeyInfo} object or null
      */
     public static PublicKeyInfo getAppPublicKeyInfo(final Context context) {
         try {

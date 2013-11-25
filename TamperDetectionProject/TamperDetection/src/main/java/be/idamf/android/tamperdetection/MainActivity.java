@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import java.util.Locale;
 
 import be.idamf.android.tamperdetection.ui.EnvironmentCheckFragment;
+import be.idamf.android.tamperdetection.ui.NetworkCheckFragment;
 import be.idamf.android.tamperdetection.ui.RootCheckFragment;
 
 public class MainActivity extends Activity implements ActionBar.TabListener {
@@ -114,6 +115,8 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
         public Fragment getItem(int position) {
             if (position == 1) {
                 return new RootCheckFragment();
+            } else if (position == 2) {
+                return new NetworkCheckFragment();
             } else {
                 return new EnvironmentCheckFragment();
             }

@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import be.idamf.android.tamperdetection.R;
-import be.idamf.android.tamperdetection.tampering.PublicKeyInfo;
+import be.idamf.android.tamperdetection.data.PublicKeyInfo;
 import be.idamf.android.tamperdetection.task.EnvironmentChecker;
 import be.idamf.android.tamperdetection.util.TamperDetectionUtils;
 
@@ -100,14 +100,16 @@ public class EnvironmentCheckFragment extends Fragment {
     }
 
     private void setPublicKeyInfo(final PublicKeyInfo publicKeyInfo) {
-        mSignatureInfo.setVisibility(View.VISIBLE);
-        mSignatureInfoSubject.setText(publicKeyInfo.getSubject());
-        mSignatureInfoIssuer.setText(publicKeyInfo.getIssuer());
-        StringBuilder sb = new StringBuilder("Valid from ");
-        sb.append(DateFormat.format("dd-MM-yyyy", publicKeyInfo.getValidFrom()));
-        sb.append(" to ");
-        sb.append(DateFormat.format("dd-MM-yyyy", publicKeyInfo.getValidUntil()));
-        mSignatureInfoValidity.setText(sb.toString());
+        if (publicKeyInfo != null) {
+            mSignatureInfo.setVisibility(View.VISIBLE);
+            mSignatureInfoSubject.setText(publicKeyInfo.getSubject());
+            mSignatureInfoIssuer.setText(publicKeyInfo.getIssuer());
+            StringBuilder sb = new StringBuilder("Valid from ");
+            sb.append(DateFormat.format("dd-MM-yyyy", publicKeyInfo.getValidFrom()));
+            sb.append(" to ");
+            sb.append(DateFormat.format("dd-MM-yyyy", publicKeyInfo.getValidUntil()));
+            mSignatureInfoValidity.setText(sb.toString());
+        }
     }
 
     private void doEnvironmentCheck() {
